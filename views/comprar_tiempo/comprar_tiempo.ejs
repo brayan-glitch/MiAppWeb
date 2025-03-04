@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprar Tiempo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2E7D32;
+        }
+
+        .saldo-box {
+            background: #e8f5e9;
+            color: #2E7D32;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 20px 0;
+            background-color: #388E3C;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #2E7D32;
+        }
+
+        .btn-back {
+            background: none;
+            color: #388E3C;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .btn-back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Comprar Tiempo</h1>
+
+    <p><strong>Saldo disponible:</strong></p>
+    <div class="saldo-box">$<span id="saldo"><%= saldo %></span></div>
+
+    <form action="/comprar_tiempo/comprar" method="POST">
+        <label for="duracion">Selecciona duración:</label>
+        <select name="duracion" id="duracion">
+            <option value="1 Hora">1 Hora - $2000</option>
+            <option value="1 Día">1 Día - $5000</option>
+            <option value="1 Semana">1 Semana - $20000</option>
+            <option value="1 Mes">1 Mes - $50000</option>
+        </select>
+        
+        <button type="submit" class="btn">Comprar</button>
+    </form>
+
+    <a href="/menu" class="btn-back">🏠 Volver al Menú</a>
+</div>
+
+</body>
+</html>
+

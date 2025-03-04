@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi App Web</title>
+    <link rel="stylesheet" href="/css/estilos.css"> <!-- Asegúrate de tener este archivo si usas CSS -->
+
+    <style>
+        /* ===== Estilos Generales ===== */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* ===== Encabezado ===== */
+        header {
+            background-color: #2E7D32; /* Verde oscuro */
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        /* ===== Menú de Navegación ===== */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ===== Botón Cerrar Sesión ===== */
+        .btn {
+            background-color: #E53935; /* Rojo */
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #C62828;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Panel de Administración</h1>
+        <nav>
+            <ul>
+                <li><a href="/menu">Inicio</a></li>
+            </ul>
+            <a href="/auth/logout" class="btn">Cerrar Sesión</a>
+        </nav>
+    </header>
+
+</body>
+</html>

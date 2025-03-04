@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Códigos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #2E7D32;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: #388E3C;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #2E7D32;
+        }
+
+        .tab {
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 5px;
+            background-color: lightgray;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .tab.active {
+            background-color: rgb(116, 121, 119);
+            color: white;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #388E3C;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 8px;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn-delete {
+            background-color: #E53935;
+        }
+
+        .btn-delete:hover {
+            background-color: #C62828;
+        }
+    </style>
+
+    <script>
+        function mostrarCategoria(categoria) {
+            let filas = document.querySelectorAll(".codigo-row");
+            filas.forEach(fila => {
+                if (categoria === "todos" || fila.dataset.duracion === categoria) {
+                    fila.classList.remove("hidden");
+                } else {
+                    fila.classList.add("hidden");
+                }
+            });
+
+            document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+            document.getElementById("tab-" + categoria).classList.add("active");
+        }
+
+        function buscarCodigo() {
+            let filtro = document.getElementById("buscarCodigo").value.toUpperCase();
+            let filas = document.querySelectorAll(".codigo-row");
+
+            filas.forEach(fila => {
+                let codigo = fila.querySelector(".codigo").textContent.toUpperCase();
+                if (codigo.includes(filtro)) {
+                    fila.classList.remove("hidden");
+                } else {
+                    fila.classList.add("hidden");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <button onclick="window.history.back()" class="btn">⬅ Volver</button>
+    <a href="/menu" class="btn">🏠 Volver al Menú</a>
+
+    <h1>Gestión de Códigos</h1>
+
+    <form action="/codigos/agregar" method="POST">
+        <label for="codigosTexto">Pegar Códigos:</label>
+        <textarea name="codigosTexto" id="codigosTexto" rows="5" required></textarea>
+    
+        <label for="duracion">Seleccionar Duración:</label>
+        <select name="duracion" id="duracion" required>
+            <option value="1 Hora">1 Hora</option>
+            <option value="1 Día">1 Día</option>
+            <option value="1 Semana">1 Semana</option>
+            <option value="1 Mes">1 Mes</option>
+        </select>
+    
+        <button type="submit" class="btn">➕ Agregar Códigos</button>
+    </form>
+
+    <h2>Códigos Disponibles</h2>
+
+    <input type="text" id="buscarCodigo" onkeyup="buscarCodigo()" placeholder="🔎 Buscar código...">
+
+    <div>
+        <span class="tab active" id="tab-todos" onclick="mostrarCategoria('todos')">Todos</span>
+        <span class="tab" id="tab-1 Hora" onclick="mostrarCategoria('1 Hora')">1 Hora</span>
+        <span class="tab" id="tab-1 Día" onclick="mostrarCategoria('1 Día')">1 Día</span>
+        <span class="tab" id="tab-1 Semana" onclick="mostrarCategoria('1 Semana')">1 Semana</span>
+        <span class="tab" id="tab-1 Mes" onclick="mostrarCategoria('1 Mes')">1 Mes</span>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Duración</th>
+                <th>Fecha de Agregado</th>
+                <th>Usuario (Si usado)</th>
+                <th>Fecha de Uso</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (codigos.length > 0) { %>
+                <% codigos.forEach(codigo => { %>
+                    <tr class="codigo-row" data-duracion="<%= codigo.duracion %>">
+                        <td class="codigo"><%= codigo.valor %></td>
+                        <td><%= codigo.duracion %></td>
+                        <td><%= codigo.fechaAgregado ? codigo.fechaAgregado.toLocaleString() : 'No disponible' %></td>
+                        <td><%= codigo.usuarioUsado ? codigo.usuarioUsado : 'No usado' %></td>
+                        <td><%= codigo.fechaUso ? codigo.fechaUso.toLocaleString() : 'No usado' %></td>
+                        <td>
+                            <form action="/codigos/eliminar/<%= codigo._id %>" method="POST">
+                                <button type="submit" class="btn btn-delete">🗑️ Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="6">No hay códigos disponibles.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Principal</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2E7D32; /* Verde oscuro */
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* Estilos de botones */
+        .btn {
+            display: block;
+            margin: 10px auto;
+            padding: 12px;
+            width: 100%;
+            background-color: #4CAF50; /* Verde */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #388E3C; /* Verde más oscuro */
+        }
+
+        /* Botón de cerrar sesión */
+        .btn-logout {
+            background-color: #E53935; /* Rojo */
+        }
+
+        .btn-logout:hover {
+            background-color: #C62828;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Bienvenido, <%= usuario.nombre %> 👋</h1>
+    <p>Saldo disponible: <strong>$<%= usuario.saldo %></strong></p>
+
+    <% if (usuario.tipo === 'admin') { %>
+        <a href="/usuarios" class="btn">Gestionar Usuarios</a>
+    <% } %>
+
+    <a href="/comprar_tiempo" class="btn">Comprar Tiempo</a>
+    <a href="/historial" class="btn">Ver Historial</a>
+    <a href="/auth/logout" class="btn btn-logout">Cerrar Sesión</a>
+</div>
+
+</body>
+</html>

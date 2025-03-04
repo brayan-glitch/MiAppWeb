@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Usuario</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+    <h1>Crear Usuario</h1>
+
+    <form action="/usuarios/crear" method="POST">
+        <label for="nombre">Nombre/Usuario:</label>
+        <input type="text" name="nombre" required>
+
+        <label for="telefono">Teléfono:</label>
+        <input type="text" name="telefono" required>
+
+        <label for="localidad">Localidad:</label>
+        <input type="text" name="localidad" required>
+
+        <label for="saldo">Saldo Inicial:</label>
+        <input type="number" name="saldo">
+
+        <button type="submit">Crear</button>
+    </form>
+
+    <a href="/usuarios">⬅ Volver a la lista</a>
+
+</body>
+</html>

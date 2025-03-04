@@ -1,0 +1,17 @@
+<!-- views/usuarios.ejs -->
+<h2>Lista de Usuarios</h2>
+<table border="1">
+    <tr>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Saldo</th>
+    </tr>
+    <% usuarios.forEach(usuario => { %>
+        <tr>
+            <td><%= usuario.nombre %></td>
+            <td><%= usuario.tipo %></td>
+            <td>$<%= usuario.saldo %></td>
+        </tr>
+    <% }) %>
+</table>
+<a href="/menu">Volver al Menú</a>

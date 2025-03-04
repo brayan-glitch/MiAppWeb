@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi App Web - Crear Usuario</title>
+</head>
+<body>
+  <h1>¡VENTA HOSTPOT!</h1>
+  <p>Este es el inicio de mi aplicación web.</p>
+
+  <% if (mensaje) { %>
+    <div style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 20px;">
+      <strong>¡Éxito!</strong> <%= mensaje %>
+    </div>
+  <% } %>
+
+  <h2>NUEVOS DISTRIBUIDORES</h2>
+  <form action="/usuarios/crear" method="POST">
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" placeholder="Nombre" required>
+    <br>
+    <label for="tipo">Tipo de usuario:</label>
+    <select name="tipo" required>
+      <option value="admin">Admin</option>
+      <option value="no_admin">No Admin</option>
+    </select>
+    <br>
+    <button type="submit">Crear Usuario</button>
+  </form>
+
+  <h2>Lista de Usuarios</h2>
+  <table border="1">
+    <tr>
+      <th>Nombre</th>
+      <th>Tipo</th>
+      <th>Saldo</th>
+      <th>Acciones</th>
+    </tr>
+    <% usuarios.forEach(function(usuario) { %>
+      <tr>
+        <td><%= usuario.nombre %></td>
+        <td><%= usuario.tipo %></td>
+        <td><%= usuario.saldo %></td>
+        <td>
+          <a href="/usuarios/editar/<%= usuario._id %>">
+            <button>Editar</button>
+          </a>
+          <form action="/usuarios/eliminar/<%= usuario._id %>" method="POST" style="display:inline;">
+            <button type="submit" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+    <% }); %>
+  </table>
+</body>
+</html>

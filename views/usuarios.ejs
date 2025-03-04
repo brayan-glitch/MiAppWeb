@@ -1,0 +1,182 @@
+<%- include('partials/header') %>
+
+<div class="container">
+    <h2>Gestión de Usuarios</h2>
+
+    <!-- Botón para ir a Gestión de Códigos -->
+    <a href="/codigos" class="btn">📋 Gestión de Códigos</a>
+
+    <!-- 📌 Formulario para Crear Usuario -->
+    <form action="/usuarios/crear" method="POST" class="formulario">
+        <input type="text" name="nombre" placeholder="Nombre" required>
+        <input type="text" name="telefono" placeholder="Teléfono" required>
+        <input type="text" name="localidad" placeholder="Localidad" required>
+        <select name="tipo" required>
+            <option value="no_admin">No Administrador</option>
+            <option value="admin">Administrador</option>
+        </select>
+        <input type="number" name="saldo" placeholder="Saldo inicial" required>
+        <button type="submit" class="btn">➕ Crear Usuario</button>
+    </form>
+
+    <!-- 📌 Lista de Usuarios -->
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Localidad</th>
+                <th>Tipo</th>
+                <th>Saldo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% usuarios.forEach(usuario => { %>
+                <tr>
+                    <td><%= usuario.nombre %></td>
+                    <td><%= usuario.telefono %></td>
+                    <td><%= usuario.localidad %></td>
+                    <td><%= usuario.tipo %></td>
+                    <td>$<%= usuario.saldo %></td>
+                    <td>
+                        <!-- 📌 Recargar Saldo -->
+                        <form action="/usuarios/recargar" method="POST" class="form-inline">
+                            <input type="hidden" name="usuarioId" value="<%= usuario._id %>">
+                            <input type="number" name="monto" placeholder="Monto" required>
+                            <input type="number" name="porcentaje" placeholder="%" min="0" step="1">
+                            <button type="submit" class="btn-recargar">💰 Recargar</button>
+                        </form>
+
+                        <!-- 📌 Eliminar Usuario -->
+                        <form action="/usuarios/eliminar" method="POST" class="form-inline">
+                            <input type="hidden" name="usuarioId" value="<%= usuario._id %>">
+                            <button type="submit" class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este usuario?');">🗑️ Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('partials/footer') %>
+
+<style>
+    /* Contenedor principal */
+    .container {
+        width: 90%;
+        max-width: 900px;
+        margin: 20px auto;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    h2 {
+        color: #2E7D32; /* Verde oscuro */
+        margin-bottom: 15px;
+    }
+
+    /* Botones generales */
+    .btn {
+        display: inline-block;
+        padding: 10px 15px;
+        margin: 10px 0;
+        background-color: #388E3C;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: 0.3s;
+        font-weight: bold;
+    }
+
+    .btn:hover {
+        background-color: #2E7D32;
+    }
+
+    /* Formulario de creación de usuario */
+    .formulario {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+        margin-bottom: 20px;
+        background: #F1F8E9;
+        border-radius: 8px;
+    }
+
+    .formulario input, .formulario select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    /* Tabla de usuarios */
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+    }
+
+    .styled-table thead {
+        background-color: #388E3C;
+        color: white;
+    }
+
+    .styled-table th, .styled-table td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+    }
+
+    .styled-table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* Botones de acción */
+    .btn-recargar {
+        background-color: #0288D1;
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-recargar:hover {
+        background-color: #0277BD;
+    }
+
+    .btn-eliminar {
+        background-color: #E53935;
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-eliminar:hover {
+        background-color: #C62828;
+    }
+
+    /* Formularios en línea */
+    .form-inline {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin-top: 5px;
+    }
+
+    .form-inline input {
+        width: 80px;
+        padding: 5px;
+        font-size: 14px;
+    }
+</style>
