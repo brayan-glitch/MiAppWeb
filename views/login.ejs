@@ -14,16 +14,17 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            padding: 10px;
         }
 
         .login-container {
             background: white;
-            padding: 30px;
-            border-radius: 8px;
+            padding: 25px;
+            border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
             width: 100%;
-            max-width: 350px;
+            max-width: 360px;
         }
 
         /* Espacio para el logo */
@@ -32,7 +33,8 @@
         }
 
         .logo-container img {
-            width: 100px; /* Ajusta según el tamaño del logo */
+            width: 80px; /* Tamaño ajustado para no deformarse */
+            max-width: 100%;
         }
 
         /* Título */
@@ -44,8 +46,8 @@
         /* Campo de entrada */
         input {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
+            padding: 12px;
+            margin: 12px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
@@ -64,7 +66,7 @@
             background-color: #2e7d32;
             color: white;
             border: none;
-            padding: 10px;
+            padding: 12px;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
@@ -74,6 +76,31 @@
         button:hover {
             background-color: #1b5e20;
         }
+
+        /* Ajustes responsivos para pantallas pequeñas */
+        @media (max-width: 400px) {
+            .login-container {
+                padding: 20px;
+            }
+
+            .logo-container img {
+                width: 70px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+
+            input {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -81,7 +108,7 @@
     <div class="login-container">
         <!-- Espacio para el logo -->
         <div class="logo-container">
-            <img src="/img/logo.png" alt="  ">
+            <img src="/img/logo.png" alt="Logo">
         </div>
 
         <h2>Iniciar Sesión</h2>

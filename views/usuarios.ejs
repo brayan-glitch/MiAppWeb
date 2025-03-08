@@ -20,44 +20,46 @@
     </form>
 
     <!-- 📌 Lista de Usuarios -->
-    <table class="styled-table">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Teléfono</th>
-                <th>Localidad</th>
-                <th>Tipo</th>
-                <th>Saldo</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% usuarios.forEach(usuario => { %>
+    <div class="table-responsive">
+        <table class="styled-table">
+            <thead>
                 <tr>
-                    <td><%= usuario.nombre %></td>
-                    <td><%= usuario.telefono %></td>
-                    <td><%= usuario.localidad %></td>
-                    <td><%= usuario.tipo %></td>
-                    <td>$<%= usuario.saldo %></td>
-                    <td>
-                        <!-- 📌 Recargar Saldo -->
-                        <form action="/usuarios/recargar" method="POST" class="form-inline">
-                            <input type="hidden" name="usuarioId" value="<%= usuario._id %>">
-                            <input type="number" name="monto" placeholder="Monto" required>
-                            <input type="number" name="porcentaje" placeholder="%" min="0" step="1">
-                            <button type="submit" class="btn-recargar">💰 Recargar</button>
-                        </form>
-
-                        <!-- 📌 Eliminar Usuario -->
-                        <form action="/usuarios/eliminar" method="POST" class="form-inline">
-                            <input type="hidden" name="usuarioId" value="<%= usuario._id %>">
-                            <button type="submit" class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este usuario?');">🗑️ Eliminar</button>
-                        </form>
-                    </td>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Localidad</th>
+                    <th>Tipo</th>
+                    <th>Saldo</th>
+                    <th>Acciones</th>
                 </tr>
-            <% }) %>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <% usuarios.forEach(usuario => { %>
+                    <tr>
+                        <td><%= usuario.nombre %></td>
+                        <td><%= usuario.telefono %></td>
+                        <td><%= usuario.localidad %></td>
+                        <td><%= usuario.tipo %></td>
+                        <td>$<%= usuario.saldo %></td>
+                        <td>
+                            <!-- 📌 Recargar Saldo -->
+                            <form action="/usuarios/recargar" method="POST" class="form-inline">
+                                <input type="hidden" name="usuarioId" value="<%= usuario._id %>">
+                                <input type="number" name="monto" placeholder="Monto" required>
+                                <input type="number" name="porcentaje" placeholder="%" min="0" step="1">
+                                <button type="submit" class="btn-recargar">💰 Recargar</button>
+                            </form>
+
+                            <!-- 📌 Eliminar Usuario -->
+                            <form action="/usuarios/eliminar" method="POST" class="form-inline">
+                                <input type="hidden" name="usuarioId" value="<%= usuario._id %>">
+                                <button type="submit" class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este usuario?');">🗑️ Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <%- include('partials/footer') %>
@@ -110,6 +112,8 @@
     }
 
     .formulario input, .formulario select {
+        width: 100%;
+        max-width: 250px;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -117,6 +121,10 @@
     }
 
     /* Tabla de usuarios */
+    .table-responsive {
+        overflow-x: auto; /* Permite desplazamiento horizontal en móviles */
+    }
+
     .styled-table {
         width: 100%;
         border-collapse: collapse;
@@ -178,5 +186,15 @@
         width: 80px;
         padding: 5px;
         font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+        .formulario {
+            flex-direction: column;
+            align-items: center;
+        }
+        .formulario input, .formulario select {
+            max-width: 100%;
+        }
     }
 </style>

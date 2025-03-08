@@ -30,22 +30,21 @@ router.get('/', verificarSesion, async (req, res) => {
     }
 });
 
-// 📌 Procesar la compra de tiempo
+// 📌 Procesar la compra de tiempo (hasta 10 códigos)
 router.post('/comprar', verificarSesion, async (req, res) => {
-    const { duracion } = req.body;
+    const { duracion, cantidad } = req.body;
     const usuarioId = req.session.usuario.id;
+    const cantidadNumerica = parseInt(cantidad, 10);
+
+    if (isNaN(cantidadNumerica) || cantidadNumerica < 1 || cantidadNumerica > 10) {
+        return res.status(400).send("Cantidad inválida");
+    }
 
     try {
         // Obtener el usuario
         const usuario = await Usuario.findById(usuarioId);
         if (!usuario) {
             return res.status(400).send("Usuario no encontrado");
-        }
-
-        // Buscar un código disponible según la duración
-        const codigo = await Codigo.findOne({ duracion });
-        if (!codigo) {
-            return res.status(400).send("No hay códigos disponibles para esta duración");
         }
 
         // Definir precios
@@ -56,30 +55,42 @@ router.post('/comprar', verificarSesion, async (req, res) => {
             "1 Mes": 50000
         };
 
-        const precio = precios[duracion];
+        const precioUnitario = precios[duracion];
+        if (!precioUnitario) {
+            return res.status(400).send("Duración inválida");
+        }
+
+        const precioTotal = precioUnitario * cantidadNumerica;
 
         // Verificar saldo
-        if (usuario.saldo < precio) {
+        if (usuario.saldo < precioTotal) {
             return res.status(400).send("Saldo insuficiente");
         }
 
+        // Buscar códigos disponibles
+        const codigos = await Codigo.find({ duracion }).limit(cantidadNumerica);
+        if (codigos.length < cantidadNumerica) {
+            return res.status(400).send("No hay suficientes códigos disponibles");
+        }
+
         // Descontar saldo y actualizar usuario
-        usuario.saldo -= precio;
+        usuario.saldo -= precioTotal;
         await usuario.save();
 
-        // Guardar en historial
-        await Historial.create({
-            usuario: usuarioId,
-            codigo: codigo.valor,
-            duracion: duracion,
-            fechaCompra: new Date()
-           
-        });
+        // Guardar en historial y eliminar códigos de la base de datos
+        const codigosGenerados = codigos.map(codigo => codigo.valor);
+        await Historial.insertMany(
+            codigos.map(codigo => ({
+                usuario: usuarioId,
+                codigo: codigo.valor,
+                duracion: duracion,
+                fechaCompra: new Date()
+            }))
+        );
 
-        // Eliminar el código de la base de datos
-        await Codigo.deleteOne({ _id: codigo._id });
+        await Codigo.deleteMany({ _id: { $in: codigos.map(c => c._id) } });
 
-        res.render('comprar_tiempo/codigo_generado', { codigo: codigo.valor });
+        res.render('comprar_tiempo/codigo_generado', { codigos: codigosGenerados });
 
     } catch (error) {
         console.error("❌ Error al procesar la compra:", error);

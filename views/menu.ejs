@@ -8,27 +8,34 @@
         /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #e8f5e9; /* Verde claro */
             text-align: center;
             padding: 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .container {
             background: white;
-            max-width: 400px;
-            margin: auto;
-            padding: 20px;
+            max-width: 420px;
+            width: 100%;
+            padding: 25px;
             border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             color: #2E7D32; /* Verde oscuro */
+            font-size: 22px;
         }
 
         p {
             font-size: 18px;
             color: #333;
+            margin: 10px 0 20px;
         }
 
         /* Estilos de botones */
@@ -43,6 +50,7 @@
             border-radius: 5px;
             font-size: 16px;
             transition: background 0.3s;
+            text-align: center;
         }
 
         .btn:hover {
@@ -57,6 +65,26 @@
         .btn-logout:hover {
             background-color: #C62828;
         }
+
+        /* Ajustes responsivos */
+        @media (max-width: 450px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            .btn {
+                font-size: 15px;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -67,6 +95,7 @@
 
     <% if (usuario.tipo === 'admin') { %>
         <a href="/usuarios" class="btn">Gestionar Usuarios</a>
+        <a href="/historial_recargas" class="btn">📜 Ver Historial de Recargas</a>
     <% } %>
 
     <a href="/comprar_tiempo" class="btn">Comprar Tiempo</a>

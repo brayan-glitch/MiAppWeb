@@ -9,26 +9,27 @@
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             text-align: center;
-            padding: 20px;
+            padding: 10px;
         }
 
         .container {
-            width: 90%;
+            width: 95%;
             max-width: 900px;
-            margin: 0 auto;
+            margin: auto;
             background: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         h1, h2 {
             color: #2E7D32;
+            font-size: 20px;
         }
 
         .btn {
             display: inline-block;
-            padding: 10px 15px;
+            padding: 10px 12px;
             margin: 5px;
             background-color: #388E3C;
             color: white;
@@ -38,6 +39,7 @@
             transition: 0.3s;
             border: none;
             cursor: pointer;
+            font-size: 14px;
         }
 
         .btn:hover {
@@ -46,12 +48,13 @@
 
         .tab {
             display: inline-block;
-            padding: 8px 12px;
-            margin: 5px;
+            padding: 6px 10px;
+            margin: 3px;
             background-color: lightgray;
             border-radius: 5px;
             cursor: pointer;
             transition: 0.3s;
+            font-size: 14px;
         }
 
         .tab.active {
@@ -66,7 +69,8 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
+            margin-top: 10px;
+            font-size: 14px;
         }
 
         table, th, td {
@@ -76,11 +80,13 @@
         th {
             background-color: #388E3C;
             color: white;
-            padding: 10px;
+            padding: 8px;
         }
 
         td {
-            padding: 8px;
+            padding: 6px;
+            word-wrap: break-word;
+            max-width: 100px;
         }
 
         tr:hover {
@@ -89,10 +95,11 @@
 
         input, select, textarea {
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             margin: 5px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
+            font-size: 14px;
         }
 
         .btn-delete {
@@ -101,6 +108,28 @@
 
         .btn-delete:hover {
             background-color: #C62828;
+        }
+
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 12px;
+                padding: 5px;
+            }
+
+            .btn {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            .tab {
+                font-size: 12px;
+                padding: 5px;
+            }
+
+            input, select, textarea {
+                font-size: 12px;
+                padding: 6px;
+            }
         }
     </style>
 
@@ -144,7 +173,7 @@
 
     <form action="/codigos/agregar" method="POST">
         <label for="codigosTexto">Pegar Códigos:</label>
-        <textarea name="codigosTexto" id="codigosTexto" rows="5" required></textarea>
+        <textarea name="codigosTexto" id="codigosTexto" rows="4" required></textarea>
     
         <label for="duracion">Seleccionar Duración:</label>
         <select name="duracion" id="duracion" required>

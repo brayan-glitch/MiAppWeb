@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Código Generado</title>
+    <title>Códigos Generados</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,45 +23,108 @@
 
         h1 {
             color: #2E7D32;
+            font-size: 22px;
         }
 
         .codigo-box {
             background: #e8f5e9;
             color: #2E7D32;
-            font-size: 24px;
+            font-size: 18px;
             font-weight: bold;
-            padding: 15px;
+            padding: 12px;
             border-radius: 5px;
-            display: inline-block;
-            margin: 15px 0;
+            margin: 10px 0;
         }
 
         .btn {
-            display: inline-block;
-            padding: 10px 15px;
-            margin: 10px 0;
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
             background-color: #388E3C;
             color: white;
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
             transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
         }
 
         .btn:hover {
             background-color: #2E7D32;
+        }
+
+        .btn-print {
+            background-color: #1976D2;
+        }
+
+        .btn-print:hover {
+            background-color: #1565C0;
+        }
+
+        /* 📱 Responsividad */
+        @media (max-width: 500px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .codigo-box {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
+        /* 🎟 Estilos de impresión para POS */
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+                padding: 10px;
+            }
+
+            .container {
+                max-width: 100%;
+                box-shadow: none;
+                padding: 0;
+            }
+
+            h1, .btn {
+                display: none;
+            }
+
+            .codigo-box {
+                font-size: 18px;
+                padding: 8px;
+                margin: 5px 0;
+                text-align: left;
+            }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>¡Código Generado!</h1>
-    <p><strong>Tu código es:</strong></p>
+    <h1>¡Códigos Generados!</h1>
     
-    <div class="codigo-box"><%= codigo %></div>
+    <% codigos.forEach((codigo, index) => { %>
+        <div class="codigo-box">
+            <strong><%= index + 1 %>.</strong> <%= codigo %>
+        </div>
+    <% }) %>
 
-    <br>
+    <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
     <a href="/comprar_tiempo" class="btn">🏠 Volver</a>
 </div>
 

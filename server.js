@@ -4,13 +4,15 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
+const historialRecargasRouter = require('./routes/historialRecargas');
 
 
 
+ 
 const app = express();
-
-// 📌 Conexión a MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/miappweb', {
+// 📌 Conexión a MongoDB (funciona tanto en local como en Atlas)
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/miappweb';
+mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
@@ -32,7 +34,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({
-    mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/miappweb',
+    mongoUrl: mongoUri,
     ttl: 86400 // 1 día
   }),
   cookie: { maxAge: 86400000 } // 24 horas
@@ -63,10 +65,11 @@ app.use('/menu', menuRoutes);
 app.use("/codigos", codigosRoutes);
 app.use('/comprar_tiempo', comprarTiempoRoutes);
 app.use('/historial', historialRoutes);
-
+app.use('/historial_recargas', historialRecargasRouter);
 
 // 📌 Redirigir a login si no hay sesión
 app.get('/', (req, res) => res.redirect('/auth/login'));
 
 // 📌 Iniciar servidor
-app.listen(3000, () => console.log('🚀 Servidor en http://localhost:3000'));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`🚀 Servidor en http://localhost:${PORT}`));

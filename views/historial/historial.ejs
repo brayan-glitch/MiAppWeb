@@ -19,7 +19,7 @@
         }
 
         .btn-back:hover {
-            background-color: #2E7D32; /* Verde oscuro */
+            background-color: #1B5E20;
         }
 
         /* Contenedor de la barra de búsqueda */
@@ -43,6 +43,18 @@
         #buscarCodigo:focus {
             border-color: #2E7D32; /* Verde oscuro */
             box-shadow: 0px 0px 5px rgba(0, 150, 136, 0.5);
+        }
+
+        /* Contenedor general */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
         /* Estilo general de la tabla */
@@ -76,50 +88,59 @@
         @media (max-width: 600px) {
             #buscarCodigo {
                 width: 80%;
+                font-size: 14px;
+                padding: 8px;
             }
 
             .styled-table th, .styled-table td {
-                padding: 8px;
+                padding: 6px;
+                font-size: 14px;
+            }
+
+            .btn-back {
+                font-size: 14px;
+                padding: 8px 12px;
             }
         }
     </style>
 </head>
 <body>
 
-    <h1>Historial de Códigos Generados</h1>
+    <div class="container">
+        <h1>Historial de Códigos Generados</h1>
 
-    <!-- Botón para volver al menú -->
-    <a href="/menu" class="btn-back">⬅ Volver al Menú</a>
+        <!-- Botón para volver al menú -->
+        <a href="/menu" class="btn-back">⬅ Volver al Menú</a>
 
-    <!-- Barra de búsqueda con estilo -->
-    <div class="search-container">
-        <input type="text" id="buscarCodigo" placeholder="🔍 Buscar código o usuario...">
-    </div>
+        <!-- Barra de búsqueda con estilo -->
+        <div class="search-container">
+            <input type="text" id="buscarCodigo" placeholder="🔍 Buscar código o usuario...">
+        </div>
 
-    <!-- Tabla con diseño mejorado -->
-    <table class="styled-table">
-        <thead>
-            <tr>
-                <th>Usuario</th>
-                <th>Código</th>
-                <th onclick="ordenarTabla()" style="cursor: pointer;">
-                    Fecha <span id="flechaOrden">🔽</span>
-                </th>
-            </tr>
-        </thead>
-        <tbody id="tablaHistorial">
-            <% historial.forEach(item => { %>
+        <!-- Tabla con diseño mejorado -->
+        <table class="styled-table">
+            <thead>
                 <tr>
-                    <td><%= item.usuario && item.usuario.nombre ? item.usuario.nombre : 'Sin usuario' %></td>
-                    <td><%= item.codigo %></td>
-                    <td data-fecha="<%= item.fechaCompra ? item.fechaCompra.toISOString() : '' %>">
-                        <%= item.fechaCompra ? new Date(item.fechaCompra).toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' }) : 'Sin fecha' %>
-                    </td>
-                    
+                    <th>Usuario</th>
+                    <th>Código</th>
+                    <th onclick="ordenarTabla()" style="cursor: pointer;">
+                        Fecha <span id="flechaOrden">🔽</span>
+                    </th>
                 </tr>
-            <% }) %>
-        </tbody>
-    </table>
+            </thead>
+            <tbody id="tablaHistorial">
+                <% historial.forEach(item => { %>
+                    <tr>
+                        <td><%= item.usuario && item.usuario.nombre ? item.usuario.nombre : 'Sin usuario' %></td>
+                        <td><%= item.codigo %></td>
+                        <td data-fecha="<%= item.fechaCompra ? item.fechaCompra.toISOString() : '' %>">
+                            <%= item.fechaCompra ? new Date(item.fechaCompra).toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' }) : 'Sin fecha' %>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
 
     <!-- Script para ordenar la tabla y filtrar datos -->
     <script>

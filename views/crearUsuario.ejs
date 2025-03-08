@@ -5,9 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Usuario</title>
     <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2E7D32;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background-color: #388E3C;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #2E7D32;
+        }
+
+        .btn-back {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            color: #388E3C;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .btn-back:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 
+<div class="container">
     <h1>Crear Usuario</h1>
 
     <form action="/usuarios/crear" method="POST">
@@ -23,10 +95,11 @@
         <label for="saldo">Saldo Inicial:</label>
         <input type="number" name="saldo">
 
-        <button type="submit">Crear</button>
+        <button type="submit" class="btn">Crear</button>
     </form>
 
-    <a href="/usuarios">⬅ Volver a la lista</a>
+    <a href="/usuarios" class="btn-back">⬅ Volver a la lista</a>
+</div>
 
 </body>
 </html>

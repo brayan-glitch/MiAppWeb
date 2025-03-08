@@ -4,23 +4,82 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro de Usuario</title>
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e8f5e9; /* Verde claro */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .registro-container {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 100%;
+      max-width: 350px;
+    }
+
+    h2 {
+      color: #2e7d32; /* Verde oscuro */
+      margin-bottom: 15px;
+    }
+
+    /* Campos de entrada */
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #2e7d32;
+      box-shadow: 0px 0px 5px rgba(46, 125, 50, 0.5);
+    }
+
+    /* Botón */
+    button {
+      width: 100%;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #1b5e20;
+    }
+  </style>
 </head>
 <body>
-  <h2>Registro de Usuario</h2>
-  <form action="/auth/registro" method="POST">
-    <label>Nombre:</label>
-    <input type="text" name="nombre" required>
-    <br>
-    <label>Contraseña:</label>
-    <input type="password" name="password" required>
-    <br>
-    <label>Tipo:</label>
-    <select name="tipo" required>
-      <option value="admin">Admin</option>
-      <option value="no_admin">No Admin</option>
-    </select>
-    <br>
-    <button type="submit">Registrarse</button>
-  </form>
+
+  <div class="registro-container">
+    <h2>Registro de Usuario</h2>
+    <form action="/auth/registro" method="POST">
+      <input type="text" name="nombre" placeholder="Nombre" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <select name="tipo" required>
+        <option value="admin">Admin</option>
+        <option value="no_admin">No Admin</option>
+      </select>
+      <button type="submit">Registrarse</button>
+    </form>
+  </div>
+
 </body>
 </html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Recargas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2E7D32;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background: #388E3C;
+            color: white;
+        }
+        .btn-back {
+            background: none;
+            color: #388E3C;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .btn-back:hover {
+            text-decoration: underline;
+        }
+        .filter-form {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Historial de Recargas</h1>
+
+    <!-- 📌 Formulario de búsqueda -->
+    <form action="/historial_recargas" method="GET" class="filter-form">
+        <label for="usuario">Usuario:</label>
+        <select name="usuarioId" id="usuario">
+            <option value="">Todos</option>
+            <% usuarios.forEach(usuario => { %>
+                <option value="<%= usuario._id %>" <%= usuarioId == usuario._id ? 'selected' : '' %>><%= usuario.nombre %></option>
+            <% }) %>
+        </select>
+
+        <label for="mes">Mes:</label>
+        <input type="month" name="mes" id="mes" value="<%= mes || '' %>">
+        
+        <button type="submit">🔍 Buscar</button>
+    </form>
+    
+    <!-- 📌 Mostrar totales -->
+    <div class="totals">
+        <p><strong>Total Cantidad Recargada:</strong> $<%= totalCantidad.toFixed(2) %></p>
+        <p><strong>Total con Ganancia:</strong> $<%= totalFinal.toFixed(2) %></p>
+    </div>
+
+    <table>
+        <tr>
+            <th>Usuario</th>
+            <th>Cantidad</th>
+            <th>Porcentaje</th>
+            <th>Total Final</th>
+            <th>Fecha</th>
+        </tr>
+        <% historial.forEach(recarga => { %>
+            <tr>
+                <td><%= recarga.usuario.nombre %></td>
+                <td>$<%= recarga.cantidad %></td>
+                <td><%= recarga.porcentaje %>%</td>
+                <td>$<%= recarga.totalFinal %></td>
+                <td><%= new Date(recarga.fecha).toLocaleString() %></td>
+            </tr>
+        <% }) %>
+    </table>
+
+    <a href="/menu" class="btn-back">🏠 Volver al Menú</a>
+</div>
+
+</body>
+</html>

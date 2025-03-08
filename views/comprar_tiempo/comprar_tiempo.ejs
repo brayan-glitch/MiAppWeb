@@ -23,28 +23,30 @@
 
         h1 {
             color: #2E7D32;
+            font-size: 24px;
         }
 
         .saldo-box {
             background: #e8f5e9;
             color: #2E7D32;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
-            padding: 10px;
+            padding: 12px;
             border-radius: 5px;
             display: inline-block;
-            margin: 10px 0;
+            margin: 15px 0;
         }
 
         label {
             font-weight: bold;
             display: block;
             margin-top: 15px;
+            font-size: 16px;
         }
 
-        select {
+        select, input {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -52,9 +54,10 @@
         }
 
         .btn {
-            display: inline-block;
-            padding: 10px 15px;
-            margin: 20px 0;
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
             background-color: #388E3C;
             color: white;
             text-decoration: none;
@@ -71,16 +74,42 @@
         }
 
         .btn-back {
-            background: none;
+            display: block;
+            margin-top: 15px;
             color: #388E3C;
             font-weight: bold;
             text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
+            font-size: 16px;
         }
 
         .btn-back:hover {
             text-decoration: underline;
+        }
+
+        /* Responsividad */
+        @media (max-width: 500px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .saldo-box {
+                font-size: 20px;
+                padding: 10px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .btn-back {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -94,13 +123,16 @@
 
     <form action="/comprar_tiempo/comprar" method="POST">
         <label for="duracion">Selecciona duración:</label>
-        <select name="duracion" id="duracion">
+        <select name="duracion" id="duracion" required>
             <option value="1 Hora">1 Hora - $2000</option>
             <option value="1 Día">1 Día - $5000</option>
             <option value="1 Semana">1 Semana - $20000</option>
             <option value="1 Mes">1 Mes - $50000</option>
         </select>
-        
+
+        <label for="cantidad">Cantidad de códigos (máximo 10):</label>
+        <input type="number" name="cantidad" id="cantidad" min="1" max="10" value="1" required>
+
         <button type="submit" class="btn">Comprar</button>
     </form>
 
@@ -109,4 +141,3 @@
 
 </body>
 </html>
-
